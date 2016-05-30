@@ -1,0 +1,19 @@
+[BondTypes]
+AlphaBeta	:	10.0e-6	:	Symmetric # This is a generaic comment
+AlphaAlpha	:	10.0e-7	:	Directed
+BetaBeta	:	10.0e-8 : 	Directed
+
+[Subunits]
+Alpha	:	3
+Beta	:	3
+
+[Bonds]
+AlphaBeta	:	Alpha1,Beta1
+AlphaBeta	:	Alpha2,Beta2
+AlphaBeta	:	Alpha3,Beta3
+AlphaAlpha	:	Alpha1,Alpha2
+AlphaAlpha	:	Alpha2,Alpha3
+AlphaAlpha	:	Alpha3,Alpha1
+BetaBeta	:	Beta1,Beta2
+BetaBeta	:	Beta2,Beta3
+BetaBeta	:	Beta3,Beta1
