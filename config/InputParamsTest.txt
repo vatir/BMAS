@@ -1,0 +1,25 @@
+[BondTypes]
+# Standard Bidirectional Edge with unit strength
+Standard			:	1.0	:	Symmetric
+# Standard Directed Edge with unit strength
+StandardDirected	:	1.0	:	Directed
+GammaGamma			:	10.0e-8 : Directed
+
+[Subunits]
+Alpha:4
+Beta:1
+Gamma:6
+
+[Bonds]
+Standard	:	Alpha0,Beta0
+Standard	:	Beta0,Gamma0
+StandardDirected	:	Alpha0,Alpha1
+StandardDirected	:	Alpha1,Alpha2
+StandardDirected	:	Alpha2,Alpha3
+StandardDirected	:	Alpha3,Alpha0
+StandardDirected	:	Gamma0,Gamma1
+StandardDirected	:	Gamma1,Gamma2
+StandardDirected	:	Gamma2,Gamma3
+StandardDirected	:	Gamma3,Gamma4
+StandardDirected	:	Gamma4,Gamma5
+StandardDirected	:	Gamma5,Gamma0
