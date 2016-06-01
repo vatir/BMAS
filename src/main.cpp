@@ -1,12 +1,19 @@
-#include <string>
-#include "FileReader.h"
+// Interal Imports
+#include "common.hpp"
 
-int main(int argc, char** argv) {
-	std::string input = argv[1];
-	//Hard coded just for testing purposes
-	//std::string input = "trimer.txt";
-	FileReader reader(input); 
-	//reader.printMap(); 
-
-	return 0; 
+int main(int input_arg_number, char* input_args[])
+{
+	try {
+		po::variables_map ConfigVariables;
+		ConfigVariables = ParseCommandLineArgs(input_arg_number, input_args);
+		//cout << ConfigVariables << endl;
+		//cout << SF << endl;
+		//ParseConfigData(ConfigVariables["struct_file"]);
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << endl;
+		return 1;
+	}
+	return 0;
 }
