@@ -61,21 +61,21 @@ po::variables_map ParseCommandLineArgs(int input_arg_number, char* input_args[])
 
 	// Variables that will be filled by the command line input parser
 	string config_file;
-	string struct_file;
+	string structure_file;
 
 	// Set Command Line Only Options
 	po::options_description generic("Generic options");
 	generic.add_options()
 		("version,v", "print version string")
 		("help,h", "produce help message")
-		("config_file,c", po::value<string>(&config_file)->default_value("multiple_sources.cfg"),
+		("config_file,c", po::value<string>(&config_file)->default_value("config/multiple_sources.cfg"),
 			"File Containing Default Configuration Options.")
 		;
 
 	// Set Options that can come from either the Command Line or the Config File
 	po::options_description config("Configuration");
 	config.add_options()
-		("structure_file,S", po::value<string>(&struct_file)->default_value("StackedTrimer.txt"),
+		("structure_file,S", po::value<string>(&structure_file),
 			"File Containing Description of the Structure.")
 		;
 
