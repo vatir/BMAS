@@ -19,21 +19,20 @@
 #include <boost/dynamic_bitset.hpp>
 
 // Setup namespaces for easier usage
-using namespace std;
+
 namespace po = boost::program_options;
 
-
 template<class T>
-ostream& operator<<(ostream& os, const vector<T>& v);
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& v);
 
-void StripComments(string & line);
+void StripComments(std::string & line);
 
-bool FindHeaderName(string & line, string & HeaderName);
+bool FindHeaderName(std::string & line, std::string & HeaderName);
 
-map<string, vector<string>> ParseBMASConfigFile(vector<string>& ConfigData);
+std::map<std::string, std::vector<std::string>> ParseBMASConfigFile(std::vector<std::string>& ConfigData);
 
 po::variables_map ParseCommandLineArgs(int input_arg_number, char * input_args[]);
 
-map<string, vector<string>> ParseConfigData(string ConfigFilename);
+std::map<std::string, std::vector<std::string>> ParseConfigData(std::string ConfigFilename);
 
-void PrintConfigData(map<string, vector<string>> ConfigSettings);
+void PrintConfigData(std::map<std::string, std::vector<std::string>> ConfigSettings);

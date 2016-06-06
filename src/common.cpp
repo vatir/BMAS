@@ -5,6 +5,8 @@ const char * VERSION = "0.0.2";
 
 #include "common.hpp"
 
+using namespace std;
+
 // A helper function
 template<class T>
 ostream& operator<<(ostream& os, const vector<T>& v)
