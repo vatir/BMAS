@@ -23,16 +23,18 @@
 namespace po = boost::program_options;
 
 template<class T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v);
+std::ostream& operator<<(std::ostream&, const std::vector<T>&);
 
-void StripComments(std::string & line);
+void SubunitParser(std::string &, std::string &, int &);
 
-bool FindHeaderName(std::string & line, std::string & HeaderName);
+void StripComments(std::string &);
 
-std::map<std::string, std::vector<std::string>> ParseBMASConfigFile(std::vector<std::string>& ConfigData);
+bool FindHeaderName(std::string &, std::string &);
 
-po::variables_map ParseCommandLineArgs(int input_arg_number, char * input_args[]);
+std::map<std::string, std::vector<std::string> > ParseBMASConfigFile(std::vector<std::string>&);
 
-std::map<std::string, std::vector<std::string>> ParseConfigData(std::string ConfigFilename);
+po::variables_map ParseCommandLineArgs(int, char * []);
 
-void PrintConfigData(std::map<std::string, std::vector<std::string>> ConfigSettings);
+std::map<std::string, std::vector<std::string>> ParseConfigData(std::string);
+
+void PrintConfigData(std::map<std::string, std::vector<std::string> >);
