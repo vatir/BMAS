@@ -15,18 +15,6 @@ ostream& operator<<(ostream& os, const vector<T>& v)
 	return os;
 }
 
-void SubunitParser(string& line, string& SubunitName, int& SubunitCount)
-{
-	static string result[2];
-	boost::regex e("^(\\w+)\\s*:\\s*(\\d+)$");
-	std::string::size_type sz;   // alias of size_t
-	boost::match_results<string::const_iterator> match_results;
-	if (boost::regex_match(line, match_results, e, boost::match_default | boost::match_partial)) {
-		SubunitName = match_results[1]; // Value in the first set of parenthesis
-		SubunitCount = stoi(match_results[2], &sz); // Value in the second set of parenthesis
-	}
-}
-
 void StripComments(string& line)
 {
 	boost::regex e("^([^#]*).*$");
@@ -47,7 +35,7 @@ bool FindHeaderName(string& line, string& HeaderName)
 	return false;
 }
 
-map<string, vector<string> > ParseBMASConfigFile(StringVector& ConfigData) {
+ConfigHolder ParseBMASConfigFile(StringVector& ConfigData) {
 	// Parse the incoming Structure File here
 	string line;
 	string HeaderName = "";

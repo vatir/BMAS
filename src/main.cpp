@@ -15,10 +15,12 @@ int main(int input_arg_number, char* input_args[])
 		Structure_Date = ParseConfigData(ConfigVariables["structure_file"].as<string>());
 		PrintConfigData(Structure_Date);
 
-		BitRep NewGraph(Structure_Date);
+		Structure CompleteGraph(Structure_Date);
 
-		NewGraph.PrintRepresentation();
-		NewGraph.PrintSubunitLocations();
+		CompleteGraph.PrintRepresentation();
+		CompleteGraph.PrintSubunitLocations();
+		CompleteGraph.PrintBondTypes();
+		CompleteGraph.PrintBonds();
 	}
 	catch (exception& e)
 	{

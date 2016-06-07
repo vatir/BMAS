@@ -8,7 +8,6 @@
 #include <iterator>
 #include <iostream>
 
-// --------------------------------------------------
 // Import Everything Else
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string.hpp>
@@ -28,11 +27,10 @@ typedef std::vector<std::string> StringVector;
 typedef std::map<std::string, boost::dynamic_bitset<> > BitsetMap;
 typedef std::pair<std::string, boost::dynamic_bitset<> > BitsetMapEntry;
 
+// ----------------------------------------------------------------------
 
 template<class T>
 std::ostream& operator<<(std::ostream&, const std::vector<T>&);
-
-void SubunitParser(std::string &, std::string &, int &);
 
 void StripComments(std::string &);
 
