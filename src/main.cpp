@@ -9,7 +9,9 @@ int main(int input_arg_number, char* input_args[])
 		map<string, vector<string> > Structure_Date;
 
 		ConfigVariables = ParseCommandLineArgs(input_arg_number, input_args);
-		cout << ConfigVariables["structure_file"].as<string>() << endl;
+
+		//cout << ConfigVariables["structure_file"].as<string>() << endl;
+
 		Structure_Date = ParseConfigData(ConfigVariables["structure_file"].as<string>());
 		PrintConfigData(Structure_Date);
 

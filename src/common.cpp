@@ -20,7 +20,7 @@ void SubunitParser(string& line, string& SubunitName, int& SubunitCount)
 	static string result[2];
 	boost::regex e("^(\\w+)\\s*:\\s*(\\d+)$");
 	std::string::size_type sz;   // alias of size_t
-	boost::match_results<std::string::const_iterator> match_results;
+	boost::match_results<string::const_iterator> match_results;
 	if (boost::regex_match(line, match_results, e, boost::match_default | boost::match_partial)) {
 		SubunitName = match_results[1]; // Value in the first set of parenthesis
 		SubunitCount = stoi(match_results[2], &sz); // Value in the second set of parenthesis
@@ -30,7 +30,7 @@ void SubunitParser(string& line, string& SubunitName, int& SubunitCount)
 void StripComments(string& line)
 {
 	boost::regex e("^([^#]*).*$");
-	boost::match_results<std::string::const_iterator> match_results;
+	boost::match_results<string::const_iterator> match_results;
 	if (boost::regex_match(line, match_results, e, boost::match_default | boost::match_partial)) {
 		line = match_results[1]; // Value in the first set of parenthesis
 	}
@@ -39,7 +39,7 @@ void StripComments(string& line)
 bool FindHeaderName(string& line, string& HeaderName)
 {
 	boost::regex e("^\\s*\\[(.*)\\]\\s*$");
-	boost::match_results<std::string::const_iterator> match_results;
+	boost::match_results<string::const_iterator> match_results;
 	if (boost::regex_match(line, match_results, e, boost::match_default | boost::match_partial)) {
 		HeaderName = match_results[1]; // Value in the first set of parenthesis
 		return true;
@@ -47,13 +47,13 @@ bool FindHeaderName(string& line, string& HeaderName)
 	return false;
 }
 
-map<string, vector<string> > ParseBMASConfigFile(vector<string>& ConfigData) {
-	// Parse the incoming Struct File here
+map<string, vector<string> > ParseBMASConfigFile(StringVector& ConfigData) {
+	// Parse the incoming Structure File here
 	string line;
 	string HeaderName = "";
-	map<string, vector<string> > ConfigSettings;
+	ConfigHolder ConfigSettings;
 	//while (getline(struct_file_handle, line))
-	for (string line : ConfigData)
+	for (auto line : ConfigData)
 	{
 		// Prepare the line for processing
 		StripComments(line);	// Remove anything "behind" a # symbol
@@ -119,7 +119,7 @@ po::variables_map ParseCommandLineArgs(int input_arg_number, char* input_args[])
 	}
 
 	if (vm.count("version")) {
-		cout << "BMAS C++ based frontend version: " << VERSION << endl;
+		cout << "BMAS C++ based front-end version: " << VERSION << endl;
 		return 0;
 	}
 
@@ -146,10 +146,10 @@ po::variables_map ParseCommandLineArgs(int input_arg_number, char* input_args[])
 	return vm;
 }
 
-map<string, vector<string> > ParseConfigData(string ConfigFilename){
+ConfigHolder ParseConfigData(string ConfigFilename){
 	// ----------------------------------------------------------------
 	// Import the Configuration Settings from the Structure File
-	map<string, vector<string> > ConfigSettings;
+	ConfigHolder ConfigSettings;
 	ifstream struct_file_handle(ConfigFilename);
 	if (!struct_file_handle)
 	{
@@ -158,22 +158,22 @@ map<string, vector<string> > ParseConfigData(string ConfigFilename){
 	else
 	{
 		string line;
-		vector<string> ConfigFileData;
+		StringVector ConfigFileData;
 		while (getline(struct_file_handle, line)) { ConfigFileData.push_back(line); }
 		struct_file_handle.close();
 
 		ConfigSettings = ParseBMASConfigFile(ConfigFileData);
 
-		// Notes for later, it will be used to subdevide the data on each line
+		// Notes for later, it will be used to subdivide the data on each line
 		//boost::split(SplitVec, line, boost::is_any_of(":"), boost::token_compress_on);
 		//cout << SplitVec;
 	}
 	return ConfigSettings;
 }
 
-void PrintConfigData(map<string, vector<string> > ConfigSettings){
+void PrintConfigData(ConfigHolder ConfigSettings){
 	// Print the data to confirm it looks reasonable.
-	for (pair<string, vector<string> > SettingGroup : ConfigSettings)
+	for (ConfigHolderEntry SettingGroup : ConfigSettings)
 	{
 		cout << "Header Section: " << SettingGroup.first << endl;
 		for (auto Setting : SettingGroup.second) {

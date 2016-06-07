@@ -6,11 +6,11 @@ class BitRep
 {
 public:
 	boost::dynamic_bitset<> Representation;
-	std::map<std::string, boost::dynamic_bitset<> > SubunitLocations;
+	BitsetMap SubunitLocations;
 
 	BitRep();
-	void AddSubunitsfromConfig(std::vector<std::string>&);
-	BitRep(std::map<std::string, std::vector<std::string> >&);
+	void AddSubunitsfromConfig(StringVector &);
+	BitRep(ConfigHolder &);
 
 	virtual ~BitRep();
 	void SetSize(int);
