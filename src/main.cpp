@@ -23,16 +23,22 @@ int main(int input_arg_number, char* input_args[])
 		//CompleteGraph.PrintBonds();
 
 		//nauty_test(10);
-		sparsegraph cg;
-		nauty_graph tg;
+		SG_DECL(cg1);
+		SG_DECL(cg2);
+		nauty_graph tg1;
+		nauty_graph tg2;
 		nauty_env workspace;
 		
-		workspace.SetSize(10);
-		tg.SetTest(10);
+		workspace.SetSize(100);
+		workspace.SetSize(100);
+		tg2.SetType2();
+		tg1.SetType1();
 
-		cg = workspace.GetCanonical(tg.graph);
+		workspace.GetCanonical(tg2.graph, cg2);
+		//workspace.Reset();
+		workspace.GetCanonical(tg1.graph, cg1);
 
-		if (aresame_sg(&tg.graph, &cg)) {
+		if (aresame_sg(&cg1, &cg2)) {
 			cout << "Worked!";
 		}
 

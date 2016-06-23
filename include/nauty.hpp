@@ -12,8 +12,11 @@ public:
 	virtual ~nauty_env();
 	// Member functions
 	void SetSize(int);
-	sparsegraph GetCanonical(sparsegraph & graph);
-private:
+
+	void GetCanonical(sparsegraph & graph, sparsegraph & cg);
+
+	void Reset();
+
 	TLS_ATTR int *lab; TLS_ATTR size_t lab_sz;
 	TLS_ATTR int *ptn; TLS_ATTR size_t ptn_sz;
 	TLS_ATTR int *orbits; TLS_ATTR size_t orbits_sz;
@@ -21,6 +24,7 @@ private:
 	optionblk options;
 	statsblk stats;
 	/* Declare and initialize sparse graph structures */
+private:
 };
 
 class nauty_graph
@@ -34,6 +38,8 @@ public:
 	// Member functions
 	void SetSize(int Size, int MaxDegree);
 	void SetTest(int Size);
+	void SetType2();
+	void SetType1();
 	sparsegraph graph;
 private:
 };

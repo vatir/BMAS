@@ -3,7 +3,7 @@
 using namespace std;
 
 nauty_env::nauty_env() {
-	lab_sz = 0;
+	lab_sz    = 0;
 	ptn_sz    = 0;
 	orbits_sz = 0;
 	map_sz    = 0;
@@ -11,26 +11,29 @@ nauty_env::nauty_env() {
 	options = \
 	{0, FALSE, FALSE, FALSE, TRUE, FALSE, CONSOLWIDTH, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100, 0, 1, 0, &dispatch_sparse, FALSE, NULL};
 
+	options.digraph = true;
 	options.getcanon = true;
-	options.writeautoms = true;
+	//options.writeautoms = true;
 }
 
 nauty_env::~nauty_env() {}
 
 void nauty_env::SetSize(int Size) {
-	int m;
-	m = SETWORDSNEEDED(Size);
 	DYNALLOC1(int, lab, lab_sz, Size, "malloc");
 	DYNALLOC1(int, ptn, ptn_sz, Size, "malloc");
 	DYNALLOC1(int, orbits, orbits_sz, Size, "malloc");
 	DYNALLOC1(int, map, map_sz, Size, "malloc");
-	/* Now make the first graph */
 }
 
-sparsegraph nauty_env::GetCanonical(sparsegraph & graph) {
-	SG_DECL(cg);
+void nauty_env::GetCanonical(sparsegraph & graph, sparsegraph & cg) {
 	sparsenauty(&graph, lab, ptn, orbits, &options, &stats, &cg);
-	return cg;
+}
+
+void nauty_env::Reset() {
+	*lab = 0;
+	*ptn = 0;
+	*orbits = 0;
+	*map = 0;
 }
 
 nauty_graph::nauty_graph()
@@ -47,6 +50,56 @@ void nauty_graph::SetSize(int Size, int MaxDegree)
 
 void nauty_graph::SetTest(int Size)
 {
+	SetSize(Size, 3);
+	int i;
+	graph.nv = Size; /* Number of vertices */
+	graph.nde = 3 * Size; /* Number of directed edges */
+	for (i = 0; i < Size; ++i)
+	{
+		graph.v[i] = 3 * i; /* Position of vertex i in v array */
+		graph.d[i] = 3; /* Degree of vertex i */
+	}
+	for (i = 0; i < Size; i += 2) /* Spokes */
+	{
+		graph.e[graph.v[i]] = i + 1;
+		graph.e[graph.v[i + 1]] = i;
+	}
+	for (i = 0; i < Size - 2; ++i) /* Clockwise edges */
+		graph.e[graph.v[i] + 1] = i + 2;
+	graph.e[graph.v[Size - 2] + 1] = 1;
+	graph.e[graph.v[Size - 1] + 1] = 0;
+	for (i = 2; i < Size; ++i) /* Anticlockwise edges */
+		graph.e[graph.v[i] + 2] = i - 2;
+	graph.e[graph.v[1] + 2] = Size - 2;
+	graph.e[graph.v[0] + 2] = Size - 1;
+}
+
+void nauty_graph::SetType1()
+{
+	int Size = 6;
+	SetSize(Size, 3);
+	int i;
+	graph.nv = Size; /* Number of vertices */
+	graph.nde = 3 * Size; /* Number of directed edges */
+	for (i = 0; i < Size; ++i)
+	{
+		graph.v[i] = 3 * i; /* Position of vertex i in v array */
+		graph.d[i] = 3; /* Degree of vertex i */
+	}
+	graph.e[graph.v[0]] = 1;
+	graph.e[graph.v[1]] = 2;
+	graph.e[graph.v[2]] = 0;
+	graph.e[graph.v[3]] = 4;
+	graph.e[graph.v[4]] = 5;
+	graph.e[graph.v[5]] = 3;
+	graph.e[graph.v[0]] = 3;
+	graph.e[graph.v[1]] = 4;
+	graph.e[graph.v[2]] = 5;
+}
+
+void nauty_graph::SetType2()
+{
+	int Size = 10;
 	SetSize(Size, 3);
 	int i;
 	graph.nv = Size; /* Number of vertices */
