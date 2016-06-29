@@ -51,6 +51,7 @@ public:
 	// Member Variables
 	std::vector<Bond> bonds;
 	BondTypeMap bond_types;
+	std::map<std::string, int> subunitPositions; 
 	// Constructor(s)
 	Structure();
 	Structure(ConfigHolder &);
@@ -63,4 +64,13 @@ public:
 
 	void PrintBondTypes();
 	void PrintBonds();
+
+	int getSize();
+	std::vector<Bond> getBonds(); 
+	 
+
+
+private:
+	int size; 
+	 
 };

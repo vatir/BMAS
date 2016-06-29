@@ -1,6 +1,9 @@
 #include "main.hpp"
-
+#include "graphStructs.h"
 #include "nausparse.h"
+#include "nautyContainer.h"
+#include "nauty.h"
+#include "naututil.h"
 
 using namespace std;
 
@@ -12,12 +15,20 @@ int main(int input_arg_number, char* input_args[])
 
 		ConfigVariables = ParseCommandLineArgs(input_arg_number, input_args);
 
-		//cout << ConfigVariables["structure_file"].as<string>() << endl;
+		cout << ConfigVariables["structure_file"].as<string>() << endl;
 
 		Structure_Date = ParseConfigData(ConfigVariables["structure_file"].as<string>());
 		//PrintConfigData(Structure_Date);
 
 		Structure CompleteGraph(Structure_Date);
+
+		adjMatrix graph(CompleteGraph);
+
+		graph.printMatrix();
+
+		nautyContainer naut(graph);
+
+		graph.~adjMatrix();
 
 		//CompleteGraph.PrintRepresentation();
 		//CompleteGraph.PrintSubunitLocations();
@@ -91,7 +102,7 @@ int main(int input_arg_number, char* input_args[])
 			sg2.e[sg2.v[i] + 2] = (i + n / 2) % n; /* Diagonals */
 		}
 
-	   /* Label sg1, result in cg1 and labeling in lab1; similarly sg2.
+		/* Label sg1, result in cg1 and labeling in lab1; similarly sg2.
 		It is not necessary to preallocate space in cg1 and cg2, but
 		they have to be initialized as we did above. */
 		sparsenauty(&sg1, lab1, ptn, orbits, &options, &stats, &cg1);
@@ -114,7 +125,7 @@ int main(int input_arg_number, char* input_args[])
 			printf("Not isomorphic.\n");
 
 
-	}
+}	
 	catch (exception& e)
 	{
 		cout << e.what() << endl;

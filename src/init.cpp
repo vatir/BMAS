@@ -68,15 +68,18 @@ void BitRep::PrintSubunitLocations() {
 Structure::Structure() {}
 Structure::Structure(ConfigHolder & ConfigSettings)
 {
+	size = 0;
 	AddSubunitsFromConfig(ConfigSettings["Subunits"]);
 	AddBondTypesFromConfig(ConfigSettings["BondTypes"]);
 	AddBondsFromConfig(ConfigSettings["Bonds"]);
+	
 }
 
 Structure::~Structure() {}
 
 void Structure::AddSubunitsFromConfig(StringVector & Config) {
 	int TotalSize = 0;
+	int j = 0;
 	string CurrentSubunitName;
 	int CurrentSubunitCount;
 
@@ -84,8 +87,18 @@ void Structure::AddSubunitsFromConfig(StringVector & Config) {
 		SubunitParser(line, CurrentSubunitName, CurrentSubunitCount);
 		SubunitLocations[CurrentSubunitName]; // Add entry for subunit
 		TotalSize += CurrentSubunitCount;
+		string CurrentSubunit;
+		
+		for (int i = 1; i <= CurrentSubunitCount; i++) {
+			j++; 
+			CurrentSubunit = CurrentSubunitName+char(i); 
+			subunitPositions[CurrentSubunit] = j; 
+		}
+
 	}
 	SetSize(TotalSize);
+	size = TotalSize; 
+	
 }
 
 void Structure::AddBondTypesFromConfig(StringVector & Config)
@@ -104,6 +117,7 @@ void Structure::AddBondTypesFromConfig(StringVector & Config)
 
 void Structure::AddBondsFromConfig(StringVector & Config)
 {
+
 	Bond current_bond;
 	for (auto line : Config) {
 		BondParser(line, current_bond);
@@ -111,6 +125,8 @@ void Structure::AddBondsFromConfig(StringVector & Config)
 		current_bond.type = bond_types[current_bond.name].type;
 		if (current_bond.type == "Directed") { current_bond.symmetric = false; }
 		bonds.push_back(current_bond);
+		
+		
 	}
 }
 
@@ -129,6 +145,14 @@ void Structure::PrintBonds()
 		bond.Print();
 		i++;
 	}
+}
+
+int Structure::getSize() {
+	return size; 
+}
+
+std::vector<Bond> Structure::getBonds() {
+	return bonds; 
 }
 
 void BondType::Print()
