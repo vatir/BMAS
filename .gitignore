@@ -256,3 +256,5 @@ paket-files/
 *.vcxproj
 *.vcxproj.filters
 *.sln
+/CallStack1.dgml
+/My Inspector XE Results - BMAS/My Inspector XE Results - BMAS.inspxeproj
