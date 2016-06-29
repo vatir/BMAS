@@ -1,6 +1,28 @@
 #pragma once
 
-#include "nausparse.h"
+#include "nauty.h"
+
+class nauty_graph
+{
+public:
+	// Member Variables
+	// Constructor(s)
+	nauty_graph();
+	// Destructor(s)
+	virtual ~nauty_graph();
+	// Member functions
+	void SetSize(int Size);
+	void SetTest(int Size);
+	void SetType1();
+
+	TLS_ATTR int *lab; TLS_ATTR size_t lab_sz;
+	TLS_ATTR int *ptn; TLS_ATTR size_t ptn_sz;
+	TLS_ATTR graph *cg; TLS_ATTR size_t cg_sz;
+	int n;
+	int m;
+	int v;
+private:
+};
 
 class nauty_env
 {
@@ -13,35 +35,17 @@ public:
 	// Member functions
 	void SetSize(int);
 
-	void GetCanonical(sparsegraph & graph, sparsegraph & cg);
+	void GetCanonical(nauty_graph & cg, nauty_graph & can_g);
 
 	void Reset();
 
-	TLS_ATTR int *lab; TLS_ATTR size_t lab_sz;
-	TLS_ATTR int *ptn; TLS_ATTR size_t ptn_sz;
 	TLS_ATTR int *orbits; TLS_ATTR size_t orbits_sz;
 	TLS_ATTR int *map; TLS_ATTR size_t map_sz;
 	optionblk options;
 	statsblk stats;
-	/* Declare and initialize sparse graph structures */
+	int n;
+	int m;
+	int v;
+
 private:
 };
-
-class nauty_graph
-{
-public:
-	// Member Variables
-	// Constructor(s)
-	nauty_graph();
-	// Destructor(s)
-	virtual ~nauty_graph();
-	// Member functions
-	void SetSize(int Size, int MaxDegree);
-	void SetTest(int Size);
-	void SetType2();
-	void SetType1();
-	sparsegraph graph;
-private:
-};
-
-void nauty_test(int);
