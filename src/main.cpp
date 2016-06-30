@@ -23,22 +23,25 @@ int main(int input_arg_number, char* input_args[])
 		//CompleteGraph.PrintBonds();
 
 		//nauty_test(10);
-		nauty_graph cg1;
-		nauty_graph cg2;
 		nauty_graph tg1;
 		nauty_graph tg2;
 		nauty_env workspace;
 		
-		workspace.SetSize(10);
-		tg2.SetTest(10);
-		tg1.SetTest(10);
-		cg1.SetSize(10);
-		cg2.SetSize(10);
+		tg1.SetTypeStackedRing(7, 4);
+		tg2.SetTypeStackedRing(7, 4);
+		nauty_graph cg1;
+		nauty_graph cg2;
+		cg1.SetSize(tg1.GetSize());
+		cg2.SetSize(tg1.GetSize());
 
-		workspace.GetCanonical(tg2, cg2);
-		//workspace.Reset();
+		tg1.PrintGraph();
+
+		workspace.SetSizeFromGraph(tg1);
 		workspace.GetCanonical(tg1, cg1);
+		workspace.SetSizeFromGraph(tg2);
+		workspace.GetCanonical(tg2, cg2);
 
+		cg1.PrintGraph();
 
 		int k;
 		for (k = 0; k < workspace.m*(size_t)workspace.n; ++k)

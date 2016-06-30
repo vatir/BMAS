@@ -14,13 +14,14 @@ public:
 	void SetSize(int Size);
 	void SetTest(int Size);
 	void SetType1();
-
+	void SetTypeStackedRing(int RingSize, int Height); // Size of a single ring, Height
+	int GetSize();
+	void PrintGraph();
 	TLS_ATTR int *lab; TLS_ATTR size_t lab_sz;
 	TLS_ATTR int *ptn; TLS_ATTR size_t ptn_sz;
 	TLS_ATTR graph *cg; TLS_ATTR size_t cg_sz;
 	int n;
 	int m;
-	int v;
 private:
 };
 
@@ -34,6 +35,7 @@ public:
 	virtual ~nauty_env();
 	// Member functions
 	void SetSize(int);
+	void SetSizeFromGraph(nauty_graph);
 
 	void GetCanonical(nauty_graph & cg, nauty_graph & can_g);
 
@@ -45,7 +47,6 @@ public:
 	statsblk stats;
 	int n;
 	int m;
-	int v;
 
 private:
 };
