@@ -1,26 +1,19 @@
-#include "graphStructs.h"
+#include "graphStructs.hpp"
 
 adjMatrix::adjMatrix(Structure graph)
 {
 	buildMatrix(graph); 
 }
 
-/*
-adjMatrix::adjMatrix(adjList list) {
-	convert(list); 
-} */
 
 adjMatrix::~adjMatrix()
 {
-	for (int i = 0; i < dim; i++) {
-		delete[] matrix;
-	}
 }
 
 void adjMatrix::buildMatrix(Structure graph) {
-	dim = graph.getSize(); 
-	
-	matrix = new int*[dim]; 
+	dim = graph.getSize();
+
+	matrix = new int*[dim];
 
 	for (int i = 0; i < dim; i++) {
 		matrix[i] = new int[dim];
@@ -28,33 +21,37 @@ void adjMatrix::buildMatrix(Structure graph) {
 
 	for (int i = 0; i < dim; i++) {
 		for (int j = 0; j < dim; j++) {
-			matrix[i][j] = 0; 
+			matrix[i][j] = 0;
 		}
 	}
-	std::vector<Bond> bond = graph.getBonds(); 
+	std::vector<Bond> bond = graph.getBonds();
 
-	Bond current; 
-	std::string node1; 
-	std::string node2; 
-	numEdges = bond.size(); 
-	for (int i = 0; i < bond.size(); i++) {
-		current = bond[i];  
-		//char(int) seems to convert it strangely, but i don't think it matters for my purposes here bc i just need an unique id
-		node1 = current.node1_type + char(current.node1_loc); 
-		 
-		node2 = current.node2_type + char(current.node2_loc); 
-
-		int pos1 = graph.subunitPositions.find(node1)->second - 1;
-		int pos2 = graph.subunitPositions.find(node2)->second - 1;
-
+	Bond current;
+	std::string node1;
+	std::string node2;
+	numEdges = bond.size();
+	
+		for (int i = 0; i < bond.size(); i++) {
 		
-		matrix[pos1][pos2] = 1; 
+			current = bond[i];
+			
+			node1 = current.node1_type + char(current.node1_loc);
 
-		if (current.symmetric) {
-			matrix[pos2][pos1] = 1;
-			numEdges++; 
+			node2 = current.node2_type + char(current.node2_loc); 
+
+			int pos1 = graph.subunitPositions.find(node1)->second-1;
+			int pos2 = graph.subunitPositions.find(node2)->second-1;
+
+
+			matrix[pos1][pos2] = 1;
+
+			if (current.symmetric) {
+				matrix[pos2][pos1] = 1;
+				numEdges++;
+			}
 		}
-	}
+		
+		
 }
 
 int adjMatrix::getSize() {
@@ -70,28 +67,7 @@ int adjMatrix::getNumEdges() {
 	return numEdges; 
 }
 
-/*
-void adjMatrix::convert(adjList list) {
-	dim = list.getSize(); 
-	std::vector<int>** arrVec = list.getList(); 
-	matrix = new int*[dim];
 
-	for (int i = 0; i < dim; i++) {
-		matrix[i] = new int[dim];
-	}
-
-	for (int i = 0; i < dim; i++) {
-		for (int j = 0; j < dim; j++) {
-			matrix[i][j] = 0;
-		}
-	}
-
-	for (int i = 0; i < dim; i++) {
-		for (int j = 0; j < arrVec[i]->size(); j++){
-			matrix[i][j] = 1; 
-		}
-	}
-} */
 
 void adjMatrix::printMatrix() {
 
@@ -168,12 +144,12 @@ void adjList::convert(adjMatrix matrix) {
 	}
 }
 void adjList::printList() {
-	/*
-	for (int i = 0; i < dim; i++) {
-		std::cout << i + 1 << ": ";
+	
+	for (int i = 0; i <dim; i++) {
+		std::cout << i << ": ";
 		for (int j = 0; j < list[i]->size(); j++) {
-			std::cout << list[i][j] << ", ";
+			std::cout << list[i]->at(j) << ", ";
 		}
-		std::cout << "" << std::endl; */
-	//}
+		std::cout << "" << std::endl; 
+	} 
 }

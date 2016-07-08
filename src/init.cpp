@@ -9,7 +9,7 @@ void SubunitParser(string& line, string& subunit_name, int& subunit_count)
 	boost::match_results<string::const_iterator> match_results;
 	if (boost::regex_match(line, match_results, e, boost::match_all)) {
 		subunit_name = match_results[1]; // Value in the first set of parenthesis
-		subunit_count = stoi(match_results[2], &sz); // Value in the second set of parenthesis and convert to int
+		subunit_count = stoi(match_results[2], &sz); // Value in the second set of parenthesis and convert to int 
 	}
 }
 
@@ -38,6 +38,7 @@ void BondParser(string & line, Bond & bond)
 		bond.node1_loc = stoi(match_results[3], &sz); // Value in the second set of parenthesis
 		bond.node2_type = match_results[4]; // Value in the second set of parenthesis
 		bond.node2_loc = stoi(match_results[5], &sz); // Value in the second set of parenthesis
+			
 	}
 }
 
@@ -80,6 +81,7 @@ Structure::~Structure() {}
 void Structure::AddSubunitsFromConfig(StringVector & Config) {
 	int TotalSize = 0;
 	int j = 0;
+
 	string CurrentSubunitName;
 	int CurrentSubunitCount;
 
@@ -90,7 +92,7 @@ void Structure::AddSubunitsFromConfig(StringVector & Config) {
 		string CurrentSubunit;
 		
 		for (int i = 1; i <= CurrentSubunitCount; i++) {
-			j++; 
+			j++; 			
 			CurrentSubunit = CurrentSubunitName+char(i); 
 			subunitPositions[CurrentSubunit] = j; 
 		}

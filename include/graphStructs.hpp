@@ -1,23 +1,25 @@
 #pragma once
+
 #include "init.hpp"
+
 class adjMatrix
 {
 public:
 	adjMatrix(Structure graph);
-	//adjMatrix(adjList list); 
 	~adjMatrix();
 	int** getMatrix(); 
 	int getSize(); 
 	void buildMatrix(Structure graph);
-	//void convert(adjList list); 
-	void printMatrix();
+	void printMatrix(); 
 	int getNumEdges(); 
 
 private: 
 	int** matrix;
 	int dim; 
 	int numEdges; 
-};
+}; 
+
+
 
 class adjList
 {
@@ -35,4 +37,4 @@ private:
 	int dim; 
 
 
-};
+}; 

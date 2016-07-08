@@ -1,6 +1,5 @@
-#include "nauty.hpp"
 
-using namespace std;
+#include "nauty.hpp"
 
 nauty_env::nauty_env() {
 	orbits_sz = 0;
@@ -46,6 +45,14 @@ nauty_graph::nauty_graph()
 	m = 0;
 }
 
+nauty_graph::nauty_graph(adjMatrix matrix) {
+	lab_sz = 0; 
+	ptn_sz = 0; 
+	cg_sz = 0; 
+	SetSize(matrix.getSize()); 
+	buildGraph(matrix); 
+} 
+
 nauty_graph::~nauty_graph() {}
 
 void nauty_graph::SetSize(int Size)
@@ -79,3 +86,16 @@ void nauty_graph::SetType1()
 	for (int v = 0; v < n; ++v) ADDONEEDGE(cg, v, (v + 1) % n, m);
 }
 
+
+void nauty_graph::buildGraph(adjMatrix matrix) {
+	int** adjacencies = matrix.getMatrix();
+	DYNALLOC2(graph, cg, cg_sz, n, m, "malloc");
+	EMPTYGRAPH(cg, m, n);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (adjacencies[i][j] == 1) {
+				ADDONEEDGE(cg, i, j, m);
+			}
+		}
+	}
+} 
