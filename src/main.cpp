@@ -19,8 +19,8 @@ int main(int input_arg_number, char* input_args[])
 		Structure CompleteGraph(Structure_Date);
 
 		adjMatrix graph(CompleteGraph); 
-		graph.printMatrix(); 
-		//CompleteGraph.PrintRepresentation();
+
+		reactions newReact(CompleteGraph); 
 		//CompleteGraph.PrintSubunitLocations();
 		//CompleteGraph.PrintBondTypes();
 		//CompleteGraph.PrintBonds();

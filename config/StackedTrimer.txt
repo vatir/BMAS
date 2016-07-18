@@ -17,9 +17,3 @@ AlphaAlpha	:	Alpha3,Alpha1
 BetaBeta	:	Beta1,Beta2
 BetaBeta	:	Beta2,Beta3
 BetaBeta	:	Beta3,Beta1
-
-
-# 6 monomers: 3 alpha, 3 beta
-# 9 dimers: EDGES
-# 20 trimers
-#

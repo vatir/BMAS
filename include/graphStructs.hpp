@@ -8,6 +8,7 @@ public:
 	adjMatrix(Structure graph);
 	~adjMatrix();
 	int** getMatrix(); 
+	int** getSymMatrix(); 
 	int getSize(); 
 	void buildMatrix(Structure graph);
 	void printMatrix(); 
@@ -15,6 +16,7 @@ public:
 
 private: 
 	int** matrix;
+	int** symMatrix; 
 	int dim; 
 	int numEdges; 
 }; 

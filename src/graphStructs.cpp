@@ -14,14 +14,17 @@ void adjMatrix::buildMatrix(Structure graph) {
 	dim = graph.getSize();
 
 	matrix = new int*[dim];
+	symMatrix = new int*[dim]; 
 
 	for (int i = 0; i < dim; i++) {
 		matrix[i] = new int[dim];
+		symMatrix[i] = new int[dim]; 
 	}
 
 	for (int i = 0; i < dim; i++) {
 		for (int j = 0; j < dim; j++) {
 			matrix[i][j] = 0;
+			symMatrix[i][j] = 0; 
 		}
 	}
 	std::vector<Bond> bond = graph.getBonds();
@@ -44,6 +47,8 @@ void adjMatrix::buildMatrix(Structure graph) {
 
 
 			matrix[pos1][pos2] = 1;
+			symMatrix[pos1][pos2] = 1; 
+			symMatrix[pos2][pos1] = 1; 
 
 			if (current.symmetric) {
 				matrix[pos2][pos1] = 1;
@@ -61,6 +66,11 @@ int adjMatrix::getSize() {
 int** adjMatrix::getMatrix() {
 
 	return matrix; 
+}
+
+int** adjMatrix::getSymMatrix() {
+	return symMatrix; 
+
 }
 
 int adjMatrix::getNumEdges() {
