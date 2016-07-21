@@ -23,10 +23,8 @@ void reactions::buildMonomerBits(Structure graph) {
 		molecules.push_back(bs);
 		zero.push_back(0); 
 		for (int j = 0; j < graph.getSize(); j++) {
-			if (matrix.getSymMatrix()[i][j] == 1) {
+			if (matrix.getMatrix()[i][j] == 1) {
 				bs2[j] = 1;
-				
-				
 			}
 		}
 		images.push_back(bs2);
@@ -45,26 +43,22 @@ void reactions::listSubspecies(Structure graph) {
 void reactions::makeMolecules(Structure graph) {
 
 	boost::dynamic_bitset<> clashCheck; 
-	boost::dynamic_bitset<> imageCheck; 
-	boost::dynamic_bitset<> imageCheckRev; 
+	boost::dynamic_bitset<> imageCheck;  
 	boost::dynamic_bitset<> newMolecule; 
-	for (int i = 0; i < molecules.size() ; i++) {
+	for (int i = 0; i < molecules.size(); i++) {
 		for (int j = 0; j <molecules.size(); j++) {
 			clashCheck = molecules[i] & molecules[j]; 
 			imageCheck = molecules[i] & images[j]; 
-			imageCheckRev = molecules[j] & images[i]; 
 
-			if (clashCheck == zero && (imageCheck > zero || imageCheckRev > zero)) {
+			if (clashCheck == zero && (imageCheck > zero)) {
 				newMolecule = molecules[i] | molecules[j]; 
 				
 				if (search(newMolecule) == false) {
 					//want to save them as bitsets and structures? bitset key maps to structure?
 					molecules.push_back(newMolecule);
-					images.push_back(((images[i] | images[j])| newMolecule) ^ newMolecule);
+					images.push_back(~newMolecule & (images[i] | images[j]));
 				}
-
 			}
-
 		}
 	}
 }
@@ -73,6 +67,8 @@ void reactions::makeMolecules(Structure graph) {
 void reactions::print() {
 	for (int i = 0; i < molecules.size(); i++) {
 		std::cout << molecules[i]<< std::endl; 
+		std::cout << images[i] << std::endl; 
+		std::cout << " " << std::endl; 
 	}
 }
 
