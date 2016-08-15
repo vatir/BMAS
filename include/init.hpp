@@ -52,6 +52,7 @@ public:
 	std::vector<Bond> bonds;
 	BondTypeMap bond_types;
 	std::map<std::string, int> subunitPositions; 
+	std::vector<std::string> subunits;
 	// Constructor(s)
 	Structure();
 	Structure(ConfigHolder &);

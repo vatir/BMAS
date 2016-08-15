@@ -11,15 +11,15 @@ Beta:1
 Gamma:6
 
 [Bonds]
-Standard	:	Alpha0,Beta0
-Standard	:	Beta0,Gamma0
-StandardDirected	:	Alpha0,Alpha1
+Standard	:	Alpha1,Beta1
+Standard	:	Beta1,Gamma1
 StandardDirected	:	Alpha1,Alpha2
 StandardDirected	:	Alpha2,Alpha3
-StandardDirected	:	Alpha3,Alpha0
-StandardDirected	:	Gamma0,Gamma1
+StandardDirected	:	Alpha3,Alpha4
+StandardDirected	:	Alpha4,Alpha1
 StandardDirected	:	Gamma1,Gamma2
-StandardDirected	:	Gamma2,Gamma3
+StandardDirected	:	Gamma2,Gamma1
 StandardDirected	:	Gamma3,Gamma4
 StandardDirected	:	Gamma4,Gamma5
-StandardDirected	:	Gamma5,Gamma0
+StandardDirected	:	Gamma5,Gamma6
+StandardDirected	:	Gamma6,Gamma1

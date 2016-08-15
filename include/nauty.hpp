@@ -11,14 +11,14 @@ public:
 	// Member Variables
 	// Constructor(s)
 	nauty_graph();
-	nauty_graph(adjMatrix matrix); 
+	nauty_graph(adjMatrix graph); 
 	// Destructor(s)
 	virtual ~nauty_graph();
 	// Member functions
 	void SetSize(int Size);
 	void SetTest(int Size);
 	void SetType1();
-	void buildGraph(adjMatrix matrix); 
+	void buildGraph(int** matrix); 
 	TLS_ATTR int *lab; TLS_ATTR size_t lab_sz;
 	TLS_ATTR int *ptn; TLS_ATTR size_t ptn_sz;
 	TLS_ATTR graph *cg; TLS_ATTR size_t cg_sz;

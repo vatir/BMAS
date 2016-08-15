@@ -45,12 +45,12 @@ nauty_graph::nauty_graph()
 	m = 0;
 }
 
-nauty_graph::nauty_graph(adjMatrix matrix) {
+nauty_graph::nauty_graph(adjMatrix graph) {
 	lab_sz = 0; 
 	ptn_sz = 0; 
 	cg_sz = 0; 
-	SetSize(matrix.getSize()); 
-	buildGraph(matrix); 
+	SetSize(graph.getSize()); 
+	buildGraph(graph.getMatrix()); 
 } 
 
 nauty_graph::~nauty_graph() {}
@@ -87,13 +87,13 @@ void nauty_graph::SetType1()
 }
 
 
-void nauty_graph::buildGraph(adjMatrix matrix) {
-	int** adjacencies = matrix.getMatrix();
+void nauty_graph::buildGraph(int** matrix) {
+	//int** adjacencies = matrix.getMatrix(); 
 	DYNALLOC2(graph, cg, cg_sz, n, m, "malloc");
 	EMPTYGRAPH(cg, m, n);
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			if (adjacencies[i][j] == 1) {
+			if (matrix[i][j] == 1) {
 				ADDONEEDGE(cg, i, j, m);
 			}
 		}

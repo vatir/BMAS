@@ -1,10 +1,19 @@
 #include "graphStructs.hpp"
 
+
+adjMatrix::adjMatrix() {
+
+}
+
 adjMatrix::adjMatrix(Structure graph)
 {
 	buildMatrix(graph); 
 }
 
+adjMatrix::adjMatrix(boost::dynamic_bitset<> bitset, std::vector < boost::dynamic_bitset<>> images) {
+	buildMatrix(bitset, images); 
+
+}
 
 adjMatrix::~adjMatrix()
 {
@@ -54,6 +63,42 @@ void adjMatrix::buildMatrix(Structure graph) {
 		}
 		
 		
+}
+
+void adjMatrix::buildMatrix(boost::dynamic_bitset<> bitset, std::vector<boost::dynamic_bitset<>> images) {
+	dim = bitset.count();
+	std::vector<int> filledSlots; 
+	for (int i = 0; i < bitset.size(); i++) {
+		if (bitset[i] == 1) {
+			filledSlots.push_back(i);
+		}
+	}
+	
+	matrix = new int*[dim];
+
+	for (int i = 0; i < dim; i++) {
+		matrix[i] = new int[dim];
+
+	}
+
+	for (int i = 0; i < dim; i++) {
+		for (int j = 0; j < dim; j++) {
+			matrix[i][j] = 0;
+
+		}
+	}
+
+	for (int i = 0; i < filledSlots.size(); i++) {
+		for (int j = 0; j < filledSlots.size(); j++) {
+			int row = filledSlots[i]; 
+			int column = filledSlots[j];
+
+			matrix[i][j] = images[row][column]; 
+
+		}
+	}
+
+
 }
 
 int adjMatrix::getSize() {

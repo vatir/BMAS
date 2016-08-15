@@ -92,9 +92,11 @@ void Structure::AddSubunitsFromConfig(StringVector & Config) {
 		string CurrentSubunit;
 		
 		for (int i = 1; i <= CurrentSubunitCount; i++) {
+			subunits.push_back(CurrentSubunitName); 
 			j++;
 			CurrentSubunit = CurrentSubunitName+std::to_string(i); 
 			subunitPositions[CurrentSubunit] = j; 
+			
 		}
 
 	}

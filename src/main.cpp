@@ -6,6 +6,7 @@ using namespace std;
 int main(int input_arg_number, char* input_args[])
 {
 	try {
+
 		po::variables_map ConfigVariables;
 		map<string, vector<string> > Structure_Date;
 
