@@ -224,6 +224,7 @@ bool reactions::checkTypes(boost::dynamic_bitset<> bitset1, boost::dynamic_bitse
 	}
 } 
 
+/*
 void reactions::findDisassociations(boost::dynamic_bitset<> bitset) {
 	adjMatrix graph = bitsetToMatrix[bitset];
 	tree disassocs(graph);
@@ -238,7 +239,7 @@ void reactions::findDisassociations(boost::dynamic_bitset<> bitset) {
 	to_string(bitset, temp); 
 	disassociations[temp] = bridges; 
 }
-
+*//*
 void reactions::findBridges(tree current,node* start) {
 	
 	if (current.isBridge(start) == true) {
@@ -248,5 +249,5 @@ void reactions::findBridges(tree current,node* start) {
 	for (int i = 0; i < start->children.size(); i++) {
 		findBridges(current, start->children[i]);
 	}
-}
+}*/
 
